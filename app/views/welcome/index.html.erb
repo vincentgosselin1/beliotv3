@@ -1,2 +1,78 @@
-<h1>Welcome#index</h1>
-<p>Find me in app/views/welcome/index.html.erb</p>
+
+<h1>Welcome to the project of Bordeaux-ETS Internet of Things Version 3</h1>
+<p>The following contains a map to locate the node sensor and the latest values on board</p>
+
+
+    <div id="map"></div>
+    <script>
+      // Note: This example requires that you consent to location sharing when
+      // prompted by your browser. If you see the error "The Geolocation service
+      // failed.", it means you probably did not give permission for the browser to
+      // locate you.
+      var map, infoWindow;
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: -34.397, lng: 150.644},
+          zoom: 6
+        });
+        infoWindow = new google.maps.InfoWindow;
+
+        // Try HTML5 geolocation.
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var pos = {
+              // lat: position.coords.latitude,
+              // lng: position.coords.longitude
+
+              //Added by Vincent Gosselin
+              lat: <%=@lat%>,
+              lng: <%=@lon%>
+            
+            };
+
+            infoWindow.setPosition(pos);
+            infoWindow.setContent('Node Location');
+            infoWindow.open(map);
+            map.setCenter(pos);
+          }, function() {
+            handleLocationError(true, infoWindow, map.getCenter());
+          });
+        } else {
+          // Browser doesn't support Geolocation
+          handleLocationError(false, infoWindow, map.getCenter());
+        }
+
+      }
+
+      function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+        infoWindow.setPosition(pos);
+        infoWindow.setContent(browserHasGeolocation ?
+                              'Error: The Geolocation service failed.' :
+                              'Error: Your browser doesn\'t support geolocation.');
+        infoWindow.open(map);
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAnKaYxkWMEf0z4Unb5OQjyXvLPrWihoyA&callback=initMap">
+    </script>
+
+<div class="row" background-color = "white">
+	<div class="col-md-6">
+  		<h2>Sensors latest values</h2>   
+		<p>Ozone (O3) concentration is <%= @ozone %> PPB (Parts per Billion)</p>
+		<p>Dust concentration concentration is <%= @dust %> ugram/m^3 (micro gram per cubic meter)</p>
+		<p>GPS coordinates are <%= @lat %>, <%= @lon %> </p>
+		<p>Luminosity is <%= @lux %> in LUX</p>
+		<p>Soil humidity is <%= @soil_humidity %> in %RH (Relative Humidity)</p>
+		<p>Soil temperature is <%= @soil_temperature %> in oC (Degrees celcius)</p>
+		<p>Air humidity is <%= @air_humidity %> in %RH (Relative Humidity)</p>
+		<p>Air temperature is <%= @air_temperature %> in oC (Degrees celcius)</p>
+	</div>
+	<div class="col-md-6">
+  	<h2> Sensors values history on Grafana </h2>
+  	<% #image_tag("grafana_logo.jpg" ,width: "60%", height: "60%") %>
+  	<% #link_to "Portail vers Grafana", 'http://13.59.162.224:3000/login', class: "btn btn-large btn-primary" %>
+  	<%= link_to image_tag("grafana_logo.jpg" , width: "60%", height: "60%"), "http://13.59.162.224:3000/login"%>
+  	</div>
+</div>
+  
