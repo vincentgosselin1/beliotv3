@@ -3,7 +3,7 @@ class WelcomeController < ApplicationController
 
   	username = 'client'
 	password = 'vignesbordeaux'
-	database = 'Vincent_room_v2'
+	database = 'Vincent_room_v3'
 
 
 	influxdb = InfluxDB::Client.new database, host: "13.59.162.224", username: username, password: password
@@ -72,11 +72,11 @@ class WelcomeController < ApplicationController
 	lastest_temp = temp_array.last.split(",")[1].split("\"")[3]#pretty ugly but works
 	@lon = lastest_temp
 
-	##LUX
+	##Battery_life
 	temp_array = ['hello','world']
 	temp_array.push("byebye")
 	#puts all_O3_concentration
-	influxdb.query 'SELECT "value" FROM "Luminosity in LUX"' do |name, tags, points|#YES with a space ><
+	influxdb.query 'SELECT "value" FROM "Battery life in percentage"' do |name, tags, points|#YES with a space ><
   	#printf "%s [ %p ]\n", name, tags
   	points.each do |pt|
     #printf "  -> %p\n", pt
@@ -86,7 +86,9 @@ class WelcomeController < ApplicationController
 	end
 	#puts all_O3_concentration.last
 	lastest_temp = temp_array.last.split(",")[1].split("\"")[3]#pretty ugly but works
-	@lux = lastest_temp
+	@battery_life = lastest_temp
+
+
 
 	##SOIL_HUMIDITY
 	temp_array = ['hello','world']
