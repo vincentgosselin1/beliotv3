@@ -70,22 +70,29 @@
     </script>
 
 <div class="row" background-color = "white">
-	<div class="col-md-6">
+  <div class="col-md-4">
+    <h2> Forecast on Dark Sky </h2>
+    <% #image_tag("grafana_logo.jpg" ,width: "60%", height: "60%") %>
+    <% #link_to "Portail vers Grafana", 'http://13.59.162.224:3000/login', class: "btn btn-large btn-primary" %>
+    <%= link_to image_tag("meteo_logo.jpg" , width: "60%", height: "60%"), "https://darksky.net/forecast/"+@lat+","+@lon%>
+  </div>
+	<div class="col-md-4">
   		<h2>Sensors latest values</h2>   
 		<p>Ozone (O3) concentration is <%= @ozone %> PPB (Parts per Billion)</p>
 		<p>Dust concentration concentration is <%= @dust %> ugram/m^3 (micro gram per cubic meter)</p>
 		<p>GPS coordinates are <%= @lat %>, <%= @lon %> </p>
+    <!-- Coordonnee GPS de montreal : 45.438087,-73.923637 -->
 		<p>Luminosity is <%= @lux %> in LUX</p>
 		<p>Soil humidity is <%= @soil_humidity %> in %RH (Relative Humidity)</p>
 		<p>Soil temperature is <%= @soil_temperature %> in oC (Degrees celcius)</p>
 		<p>Air humidity is <%= @air_humidity %> in %RH (Relative Humidity)</p>
 		<p>Air temperature is <%= @air_temperature %> in oC (Degrees celcius)</p>
 	</div>
-	<div class="col-md-6">
+	<div class="col-md-4">
   	<h2> Sensors values history on Grafana </h2>
   	<% #image_tag("grafana_logo.jpg" ,width: "60%", height: "60%") %>
   	<% #link_to "Portail vers Grafana", 'http://13.59.162.224:3000/login', class: "btn btn-large btn-primary" %>
   	<%= link_to image_tag("grafana_logo.jpg" , width: "60%", height: "60%"), "http://13.59.162.224:3000/login"%>
-  	</div>
+  </div>
 </div>
   
