@@ -1,8 +1,8 @@
 class WelcomeController < ApplicationController
   def index
 
-  	username = 'admin'
-	password = 'admin'
+  	username = 'client'
+	password = 'vignesbordeaux'
 	database = 'Vincent_room_v2'
 
 
